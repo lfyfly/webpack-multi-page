@@ -1,5 +1,9 @@
-var webpackCommon = require('./webpack.common.js')
+const webpackCommon = require('./webpack.common.js')
 const merge = require('webpack-merge')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const customConfig = require('./webpack.custom.js')
+const path = require('path')
 module.exports = merge(webpackCommon, {
   mode: 'production', // 当mode值为'production'时，webpack-dev-server 变动刷新反应很慢
   module: {
@@ -28,5 +32,14 @@ module.exports = merge(webpackCommon, {
       }
     ]
   },
-
+  plugins: [
+    new CleanWebpackPlugin('./dist'),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, './static'),
+        to: customConfig.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
+  ]
 })
