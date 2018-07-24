@@ -1,7 +1,8 @@
-var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var webpack = require('webpack')
-var { resolve, getEntries, getHtmlWebpackPlugins } = require('./webpack.until.js')
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+const { resolve, getEntries, getHtmlWebpackPlugins } = require('./webpack.until.js')
+const cfg = require('./webpack.cfg.js')
 
 module.exports = {
   entry: {
@@ -14,7 +15,7 @@ module.exports = {
   },
   output: {
     path: resolve('dist'),
-    filename: 'static/js/[name].js',
+    filename: `${cfg.build.assetsSubDirectory}/js/[name].js`,
   },
   module: {
     rules: [
