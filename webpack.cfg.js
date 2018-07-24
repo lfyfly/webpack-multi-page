@@ -3,6 +3,6 @@ module.exports = {
 
   },
   build:{
-    assetsSubDirectory:'aaastatic'
+    assetsSubDirectory:'static'
   }
 }
