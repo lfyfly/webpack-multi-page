@@ -5,6 +5,6 @@ module.exports = {
   build:{
     assetsSubDirectory:'static',
     productionSourceMap: true,
-    assetsPublicPath:'./'
+    assetsPublicPath:'http:asd.sad/'
   }
 }
