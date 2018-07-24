@@ -32,7 +32,7 @@ let until = {
             template: resolve(`./src/pages/${htmlFileName}`),
             filename: htmlFileName,
             chunks: [chunkName],
-            // inject: true,
+            inject: true,
           })
         )
       }

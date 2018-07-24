@@ -3,6 +3,7 @@ module.exports = {
 
   },
   build:{
-    assetsSubDirectory:'static'
+    assetsSubDirectory:'static',
+    productionSourceMap: true
   }
 }

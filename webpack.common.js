@@ -1,6 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 const { resolve, getEntries, getHtmlWebpackPlugins } = require('./webpack.until.js')
 const cfg = require('./webpack.cfg.js')
 
@@ -30,6 +32,7 @@ module.exports = {
     ]
   },
   plugins: [
+  
     // new webpack.HotModuleReplacementPlugin(), // 启用 热更新
     ...getHtmlWebpackPlugins()
 
