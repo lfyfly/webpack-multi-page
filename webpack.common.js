@@ -39,8 +39,9 @@ module.exports = (env, argv) => {
             {
               loader: 'url-loader',
               options: {
-                limit: 228192,
+                limit: 8192,
                 name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
+                publicPath:'../../'
               }
             }
           ]

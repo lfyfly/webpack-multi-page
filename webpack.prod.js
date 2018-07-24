@@ -23,7 +23,6 @@ module.exports = (env, argv) => {
               'sass-loader?sourceMap', // 将 Sass 编译成 CSS
               'postcss-loader?sourceMap',
             ],
-
           })
         }
 
