@@ -1,6 +1,6 @@
 var webpackCommon = require('./webpack.common.js')
 const merge = require('webpack-merge')
-
+const cfg = require('./webpack.cfg.js')
 module.exports = (env, argv) => {
 
   return merge(webpackCommon(env, argv), {
@@ -17,7 +17,21 @@ module.exports = (env, argv) => {
             'sass-loader?sourceMap', // 将 Sass 编译成 CSS
             'postcss-loader?sourceMap'
           ]
-        }
+        },
+        {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          exclude: /(node_modules|bower_components)/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192,
+                name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
+                publicPath:'../../'
+              }
+            }
+          ]
+        },
       ]
     },
     devServer: {}

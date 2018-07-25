@@ -24,7 +24,21 @@ module.exports = (env, argv) => {
               'postcss-loader?sourceMap',
             ],
           })
-        }
+        },
+        {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          exclude: /(node_modules|bower_components)/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192,
+                name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
+                publicPath:'../../'
+              }
+            }
+          ]
+        },
 
       ]
     },
@@ -37,7 +51,6 @@ module.exports = (env, argv) => {
           ignore: ['.*']
         }
       ]),
-
       new ExtractTextPlugin({
         filename: `${cfg.build.assetsSubDirectory}/css/[name].css`,
         // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110

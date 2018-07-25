@@ -32,20 +32,7 @@ module.exports = (env, argv) => {
             loader: 'babel-loader',
           }
         },
-        {
-          test: /\.(png|jpg|gif)$/,
-          exclude: /(node_modules|bower_components)/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 8192,
-                name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
-                publicPath:'../../'
-              }
-            }
-          ]
-        },
+       
         {
           test: /\.(woff|svg|eot|ttf)\??.*$/,
           exclude: /(node_modules|bower_components)/,
