@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
     output: {
       path: resolve('dist'),
       filename: `${cfg.build.assetsSubDirectory}/js/[name].[chunkhash].js`,
-      chunkFilename: `${cfg.build.assetsSubDirectory}/js/[name].[chunkhash].js`,
+      // chunkFilename: `${cfg.build.assetsSubDirectory}/js/[name].[chunkhash].js`,
       publicPath: argv.mode === 'production'
         ? cfg.build.assetsPublicPath
         : cfg.dev.assetsPublicPath

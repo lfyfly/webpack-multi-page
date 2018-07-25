@@ -2,7 +2,9 @@ const webpackCommon = require('./webpack.common.js')
 const merge = require('webpack-merge')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const webpack = require('webpack')
@@ -16,19 +18,30 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.(css|scss|sass)$/,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                // you can specify a publicPath here
-                // by default it use publicPath in webpackOptions.output
-              }
-            },
-            'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
-            'sass-loader?sourceMap', // 将 Sass 编译成 CSS
-            'postcss-loader?sourceMap'
-          ]
+          use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: [
+              'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
+              'sass-loader?sourceMap', // 将 Sass 编译成 CSS
+              'postcss-loader?sourceMap'
+            ]
+          })
         },
+        // {
+        //   test: /\.(css|scss|sass)$/,
+        //   use: [
+        //     {
+        //       loader: MiniCssExtractPlugin.loader,
+        //       options: {
+        //         // you can specify a publicPath here
+        //         // by default it use publicPath in webpackOptions.output
+        //       }
+        //     },
+        //     'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
+        //     'sass-loader?sourceMap', // 将 Sass 编译成 CSS
+        //     'postcss-loader?sourceMap'
+        //   ]
+        // },
         {
           test: /\.(gif|png|jpe?g|svg)$/i,
           exclude: /(node_modules|bower_components)/,
@@ -55,10 +68,10 @@ module.exports = (env, argv) => {
           ignore: ['.*']
         }
       ]),
-     
-      new MiniCssExtractPlugin({
 
-        filename: `${cfg.build.assetsSubDirectory}/css/[name].[contenthash].css`,
+      // new MiniCssExtractPlugin({
+      new ExtractTextPlugin({
+        filename: `${cfg.build.assetsSubDirectory}/css/[name].[hash].css`,
         // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       }),
 
