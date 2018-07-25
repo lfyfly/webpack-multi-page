@@ -32,8 +32,15 @@ let until = {
           new HtmlWebpackPlugin({
             template: resolve(`./src/pages/${htmlFileName}`),
             filename: htmlFileName,
-            chunks: [chunkName].concat(argv.mode === 'production' ? ['vendor','commons','manifest'] : []),
+            chunks: [chunkName].concat(argv.mode === 'production' ? ['vendor', 'commons', 'manifest'] : []),
             inject: true,
+            minify: argv.mode !== 'production' ? undefined : {
+              removeComments: true,
+              collapseWhitespace: true,
+              removeAttributeQuotes: true
+              // more options:
+              // https://github.com/kangax/html-minifier#options-quick-reference
+            },
           })
         )
       }
