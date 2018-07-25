@@ -18,7 +18,8 @@ module.exports = (env, argv) => {
     },
     output: {
       path: resolve('dist'),
-      filename: `${cfg.build.assetsSubDirectory}/js/[name].js`,
+      filename: `${cfg.build.assetsSubDirectory}/js/[name].[chunkhash].js`,
+      chunkFilename: `${cfg.build.assetsSubDirectory}/js/[name].[chunkhash].js`,
       publicPath: argv.mode === 'production'
         ? cfg.build.assetsPublicPath
         : cfg.dev.assetsPublicPath
@@ -48,7 +49,7 @@ module.exports = (env, argv) => {
           use: {
             loader: 'url-loader',
             options: {
-              name: `${cfg.build.assetsSubDirectory}/font/[name]-[hash:7].[ext]`,
+              name: `${cfg.build.assetsSubDirectory}/font/[name].[hash:7].[ext]`,
               limit: 8192
             }
           }

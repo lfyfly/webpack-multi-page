@@ -21,8 +21,6 @@ let until = {
   },
   getHtmlWebpackPlugins(argv) {
 
-console.log(argv.mode,' untiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntil')
-
     let htmls = fs.readdirSync(resolve('./src/pages'))
     let HtmlWebpackPlugins = []
     htmls.forEach((htmlFileName) => {
@@ -34,7 +32,7 @@ console.log(argv.mode,' untiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntilu
           new HtmlWebpackPlugin({
             template: resolve(`./src/pages/${htmlFileName}`),
             filename: htmlFileName,
-            chunks: [chunkName].concat(argv.mode === 'production' ? ['commons'] : []),
+            chunks: [chunkName].concat(argv.mode === 'production' ? ['vendor','commons','manifest'] : []),
             inject: true,
           })
         )
