@@ -34,7 +34,7 @@ module.exports = (env, argv) => {
               options: {
                 limit: 8192,
                 name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
-                publicPath:'../../'
+                publicPath: '../../'
               }
             }
           ]
@@ -46,7 +46,7 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin('./dist'),
       new CopyWebpackPlugin([
         {
-          from: path.resolve(__dirname, './static'),
+          from: path.resolve(__dirname, cfg.build.assetsSubDirectory),
           to: cfg.build.assetsSubDirectory,
           ignore: ['.*']
         }
@@ -77,5 +77,16 @@ module.exports = (env, argv) => {
       }),
 
     ],
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+              name: "commons",
+              chunks: "all",
+              minChunks: 2
+          }
+      }
+      }
+    }
   })
 }

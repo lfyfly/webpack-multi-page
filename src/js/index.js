@@ -5,3 +5,5 @@ import '@/css/index/index.scss'
 var p = new P('fly')
 p.getName()
 console.log(process.env.NODE_ENV)
+var $ =require('jquery')
+console.log($)

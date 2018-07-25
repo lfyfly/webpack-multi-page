@@ -6,7 +6,7 @@ var resolve = function (_path) {
 }
 let until = {
   resolve,
-  getEntries() {
+  getEntries(argv) {
     let entries = fs.readdirSync(resolve('./src/js'))
     let entry = {}
     let key
@@ -19,19 +19,22 @@ let until = {
     console.log(entry)
     return entry
   },
-  getHtmlWebpackPlugins() {
+  getHtmlWebpackPlugins(argv) {
+
+console.log(argv.mode,' untiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntiluntil')
+
     let htmls = fs.readdirSync(resolve('./src/pages'))
     let HtmlWebpackPlugins = []
     htmls.forEach((htmlFileName) => {
       let chunkName
       if (/.html$/.test(htmlFileName)) {
         chunkName = htmlFileName.replace(/.html$/, '')
-    
+
         HtmlWebpackPlugins.push(
           new HtmlWebpackPlugin({
             template: resolve(`./src/pages/${htmlFileName}`),
             filename: htmlFileName,
-            chunks: [chunkName],
+            chunks: [chunkName].concat(argv.mode === 'production' ? ['commons'] : []),
             inject: true,
           })
         )

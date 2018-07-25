@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
   console.log(argv.mode, '========================')
   return {
     entry: {
-      ...getEntries()
+      ...getEntries(argv)
     },
     resolve: {
       alias: {
@@ -25,6 +25,15 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        {
+          test: /\.(html)$/,
+          use: {
+            loader: 'html-loader',
+            options: {
+              attrs: [':data-src']
+            }
+          }
+        },
         {
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
@@ -49,7 +58,7 @@ module.exports = (env, argv) => {
     plugins: [
 
       // new webpack.HotModuleReplacementPlugin(), // 启用 热更新
-      ...getHtmlWebpackPlugins()
+      ...getHtmlWebpackPlugins(argv)
 
     ],
   }
