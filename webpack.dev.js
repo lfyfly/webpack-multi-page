@@ -18,20 +18,6 @@ module.exports = (env, argv) => {
             'postcss-loader?sourceMap'
           ]
         },
-        {
-          test: /\.(gif|png|jpe?g|svg)$/i,
-          exclude: /(node_modules|bower_components)/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 8192,
-                name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
-                publicPath:'../../'
-              }
-            }
-          ]
-        },
       ]
     },
     devServer: {}

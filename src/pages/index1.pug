@@ -1,14 +1,15 @@
 doctype html
-html(lang='en')
+html(lang="en")
   head
-    meta(charset='UTF-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title html
   body
     h1 html
-    a(href='about.html') to about
+    a(href="about.html") to about
     div
-      img(src='static/img/avatar.jpg', alt='', srcset='')
+      img(src="../assets/img/avatar.jpg", alt="")
+      img(src="/static/img/staticPath.jpg", alt="")
     include ./_tpls/a.pug
     

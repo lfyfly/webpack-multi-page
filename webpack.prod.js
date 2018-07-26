@@ -13,7 +13,7 @@ const cfg = require('./webpack.cfg.js')
 module.exports = (env, argv) => {
   return merge(webpackCommon(env, argv), {
     mode: 'production', // 当mode值为'production'时，webpack-dev-server 变动刷新反应很慢
-    devtool: '#source-map',
+    devtool: cfg.build.productionSourceMap ? '#source-map' : undefined,
     module: {
       rules: [
         {
@@ -27,35 +27,7 @@ module.exports = (env, argv) => {
             ]
           })
         },
-        // {
-        //   test: /\.(css|scss|sass)$/,
-        //   use: [
-        //     {
-        //       loader: MiniCssExtractPlugin.loader,
-        //       options: {
-        //         // you can specify a publicPath here
-        //         // by default it use publicPath in webpackOptions.output
-        //       }
-        //     },
-        //     'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
-        //     'sass-loader?sourceMap', // 将 Sass 编译成 CSS
-        //     'postcss-loader?sourceMap'
-        //   ]
-        // },
-        {
-          test: /\.(gif|png|jpe?g|svg)$/i,
-          exclude: /(node_modules|bower_components)/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 8192,
-                name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
-                publicPath: '../../'
-              }
-            }
-          ]
-        },
+
 
       ]
     },
@@ -71,7 +43,8 @@ module.exports = (env, argv) => {
 
       // new MiniCssExtractPlugin({
       new ExtractTextPlugin({
-        filename: `${cfg.build.assetsSubDirectory}/css/[name].[hash].css`,
+        // filename: `${cfg.build.assetsSubDirectory}/img/[name].[hash].css`,
+        filename: '[name].[hash].css', // 和html同目录是为了css相对路径起作用
         // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       }),
 
@@ -86,11 +59,11 @@ module.exports = (env, argv) => {
       }),
       new OptimizeCssAssetsPlugin({
         cssProcessorOptions: {
-          sourcemap: true,
-          map: {
-            inline: !cfg.build.productionSourceMap,
+          // sourcemap: cfg.build.productionSourceMap,
+          map: cfg.build.productionSourceMap ? {
+            inline: false,
             annotation: true
-          },
+          } : undefined,
           autoprefixer: { disable: true },
         }
       }),

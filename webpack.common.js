@@ -24,15 +24,27 @@ module.exports = (env, argv) => {
         ? cfg.build.assetsPublicPath
         : cfg.dev.assetsPublicPath
     },
+
     module: {
       rules: [
         {
+          test: /\.html$/,
+          use: [
+            {
+              loader: 'html-loader',
+              options: {
+              }
+            }]
+        },
+        {
           test: /\.pug$/,
           use: [
-            'raw-loader', {
+            'html-loader',
+            // 'raw-loader',
+            {
               loader: 'pug-html-loader',
               options: {
-                data: {} // set of data to pass to the pug render.
+                data: { aa: 2222 } // set of data to pass to the pug render.
               }
             }]
         },
@@ -43,7 +55,19 @@ module.exports = (env, argv) => {
             loader: 'babel-loader',
           }
         },
-
+        {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          exclude: /(node_modules|bower_components)/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192,
+                name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
+              }
+            }
+          ]
+        },
         {
           test: /\.(woff|svg|eot|ttf)\??.*$/,
           exclude: /(node_modules|bower_components)/,
@@ -57,13 +81,18 @@ module.exports = (env, argv) => {
         },
       ]
     },
+
     plugins: [
 
       // new webpack.HotModuleReplacementPlugin(), // 启用 热更新
       ...getHtmlWebpackPlugins(argv),
-      new webpack.ProvidePlugin({
-        _: "underscore"
-      })
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          htmlLoader: {
+            root: __dirname // 对于html中的绝对路径进行定位， /static/a.jpg => path.resolve(__dirname, '/static/a.jpg')
+          }
+        }
+      }),
     ],
   }
 }
