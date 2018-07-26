@@ -20,7 +20,9 @@ module.exports = (env, argv) => {
         },
       ]
     },
-    devServer: {}
+    devServer: {
+      proxy: cfg.dev.proxy
+    }
   })
 };
 
