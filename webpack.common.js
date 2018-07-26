@@ -27,13 +27,14 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.(html)$/,
-          use: {
-            loader: 'html-loader',
-            options: {
-              attrs: [':data-src']
-            }
-          }
+          test: /\.pug$/,
+          use: [
+            'raw-loader', {
+              loader: 'pug-html-loader',
+              options: {
+                data: {} // set of data to pass to the pug render.
+              }
+            }]
         },
         {
           test: /\.js$/,
@@ -42,7 +43,7 @@ module.exports = (env, argv) => {
             loader: 'babel-loader',
           }
         },
-       
+
         {
           test: /\.(woff|svg|eot|ttf)\??.*$/,
           exclude: /(node_modules|bower_components)/,
@@ -59,8 +60,10 @@ module.exports = (env, argv) => {
     plugins: [
 
       // new webpack.HotModuleReplacementPlugin(), // 启用 热更新
-      ...getHtmlWebpackPlugins(argv)
-
+      ...getHtmlWebpackPlugins(argv),
+      new webpack.ProvidePlugin({
+        _: "underscore"
+      })
     ],
   }
 }

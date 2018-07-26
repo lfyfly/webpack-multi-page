@@ -23,21 +23,25 @@ let until = {
 
     let htmls = fs.readdirSync(resolve('./src/pages'))
     let HtmlWebpackPlugins = []
-    htmls.forEach((htmlFileName) => {
+    htmls.forEach((tplFileName) => {
       let chunkName
-      if (/.html$/.test(htmlFileName)) {
-        chunkName = htmlFileName.replace(/.html$/, '')
+      var reg = /\.[^.]+$/
+      if (reg.test(tplFileName)) {
+        chunkName = tplFileName.replace(reg, '')
 
         HtmlWebpackPlugins.push(
           new HtmlWebpackPlugin({
-            template: resolve(`./src/pages/${htmlFileName}`),
-            filename: htmlFileName,
+            title: 'Custom template using Handlebars',
+            template: resolve(`./src/pages/${tplFileName}`),
+            filename: chunkName+'.html',
             chunks: [chunkName].concat(argv.mode === 'production' ? ['vendor', 'commons', 'manifest'] : []),
             inject: true,
             minify: argv.mode !== 'production' ? undefined : {
               removeComments: true,
               collapseWhitespace: true,
-              removeAttributeQuotes: true
+              removeAttributeQuotes: true,
+              minifyCSS: true,
+              minifyJS: true,
               // more options:
               // https://github.com/kangax/html-minifier#options-quick-reference
             },
