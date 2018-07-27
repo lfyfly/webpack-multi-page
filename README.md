@@ -1,8 +1,9 @@
-# webpack-multi-page
+# [webpack-multi-page](https://github.com/lfyfly/webpack-multi-page)
+
 ## 1、快速使用
 ### 1.1 克隆项目
 ```
-git clone 
+git clone https://github.com/lfyfly/webpack-multi-page.git
 ```
 删除`.git`文件夹，这是我的`commit记录`，所以删除
 
@@ -19,7 +20,8 @@ npm run dev
 ```
 npm run build
 ```
-
+### 1.5 配置文件
+详见根目录下`webpack.cfg.js`
 
 ## 2、功能简介
 ### 2.1 开发模式
@@ -28,6 +30,7 @@ npm run build
 - 新增页面，需要重新运行`npm run dev`
 - html，css，js 更改自动刷新
 - scss，es6+，pug支持
+- 支持代理配置
 
 ### 2.2 关于图片资源
 - 图片不要放在`/static`文件下，而是放在`/assets`。
@@ -49,3 +52,6 @@ npm run build
   - `[page.js]`对应着每个页面独自的js文件 
 - css文件单独提取
 - 小于8k文件自动转base64代码
+
+## gulp 多页面配置
+[dev-easy](https://github.com/lfyfly/dev-easy)
