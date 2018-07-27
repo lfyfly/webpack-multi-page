@@ -62,7 +62,7 @@ module.exports = (env, argv) => {
             {
               loader: 'url-loader',
               options: {
-                limit: 8192,
+                limit: 11118192,
                 name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
               }
             }
@@ -89,7 +89,7 @@ module.exports = (env, argv) => {
       new webpack.LoaderOptionsPlugin({
         options: {
           htmlLoader: {
-            root: __dirname // 对于html中的绝对路径进行定位， /static/a.jpg => path.resolve(__dirname, '/static/a.jpg')
+            root: path.resolve(__dirname,'./src') // 对于html中的绝对路径进行定位， /assets/a.jpg => path.resolve(__dirname, '/src/assets/a.jpg')
           }
         }
       }),

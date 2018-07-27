@@ -1,7 +1,7 @@
 {
   "name": "webpack-multi-page",
   "version": "1.0.0",
-  "description": "",
+  "description": "webpack webpack4 multi-page multiPage multiplePage",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js --mode development",
