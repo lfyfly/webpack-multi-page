@@ -20,7 +20,17 @@ npm run dev
 ```
 npm run build
 ```
-### 1.5 配置文件
+
+### 1.5 一键兼容webp图片
+在执行完`npm run build`后执行`npm run webp`
+
+### 1.6 图片压缩
+`src/assets/_img`（原图文件夹） -> `src/assets/img`（压缩后图片文件夹）
+
+```
+npm run imgmin
+```
+### 1.7 配置文件
 详见根目录下`webpack.cfg.js`
 
 ## 2、功能简介
