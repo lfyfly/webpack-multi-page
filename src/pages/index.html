@@ -5,26 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>html</title>
-  <script>
-      function checkWebp() {
-        try {
-          return (document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0)
-        } catch (err) {
-          return false
-        }
-      }
-      let supportWebp = checkWebp()
-
-      window.onload = function () {
-        let imgEls = document.querySelectorAll('img[data-src]')
-        for (let i = 0; i < imgEls.length; i++) {
-          let imgSrc = imgEls[i].getAttribute('data-src')
-          imgEls[i].removeAttribute('data-src')
-          if (supportWebp) imgSrc = imgSrc.replace(/(\.[^\.]+)$/, '.webp')
-          imgEls[i].src = imgSrc
-        }
-      }
-    }</script>
 </head>
 <body>
   <h1>html</h1>
@@ -32,6 +12,10 @@
   <div>
     <img src="../assets/img/avatar.jpg" alt="" srcset="">
     <img src="/assets/img/AbsolutePath.jpg" alt="" srcset="">
+    <div class="icon-a"></div>
+    <div class="icon-b"></div>
+    <div class="icon-c"></div>
+    <div class="icon-d"></div>
   </div>
 </body>
 </html>

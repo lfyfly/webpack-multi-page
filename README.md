@@ -30,7 +30,13 @@ npm run build
 ```
 npm run imgmin
 ```
-### 1.7 配置文件
+### 1.7 雪碧图
+`_sprites_src/xxx/*.png`（原图文件夹） -> `src/sprites/xxx.css` + `src/sprites/xxx.png` 
+
+```
+npm run sp
+```
+### 1.8 配置文件
 详见根目录下`webpack.cfg.js`
 
 ## 2、功能简介

@@ -65,3 +65,27 @@ gulp.task('webphtml', function () {
     }))
     .pipe(gulp.dest('dist'))
 })
+
+
+//  雪碧图
+// _
+const spritesmith = require('gulp.spritesmith')
+const gulpIf = require('gulp-if')
+var buffer = require('vinyl-buffer');
+gulp.task('sprites', function () {
+  // 读取 sprites
+  let spritesList = fs.readdirSync('_sprites_src')
+  let sprites = gulp.src('_sprites_src/*/*.{jpg,png}')
+  spritesList.forEach((spritesItem) => {
+    sprites = sprites.pipe(gulpIf(`${spritesItem}/*.{jpg,png,svg}`, spritesmith({
+      imgName: spritesItem + '.png',
+      cssName: spritesItem + '.css',
+      imgPath: `./${spritesItem}.png`
+    })))
+  })
+  return sprites
+    .pipe(buffer())
+    .pipe(imagemin(
+      [mozjpeg({ quality: config.imgmin_quality }), pngquant({ quality: config.imgmin_quality })]))
+    .pipe(gulp.dest('src/assets/sprites'))
+})
