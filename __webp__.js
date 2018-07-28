@@ -8,8 +8,8 @@
     }
   }
   var supportWebp = checkWebp()
-
-  window.onload = function () {
+  if (supportWebp) document.querySelector('html').className = document.querySelector('html').className + '__webp__'
+  window.addEventListener('load', function () {
     var imgEls = document.querySelectorAll('img[data-src]')
     for (var i = 0; i < imgEls.length; i++) {
       var imgSrc = imgEls[i].getAttribute('data-src')
@@ -17,6 +17,6 @@
       if (supportWebp) imgSrc = imgSrc.replace(/(\.[^\.]+)$/, '.webp')
       imgEls[i].src = imgSrc
     }
-  }
+  })
 })()
 
