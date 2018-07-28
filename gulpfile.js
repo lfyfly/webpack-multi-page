@@ -24,6 +24,7 @@ gulp.task('imgmin', function () {
 // append <head> __webp__.js 
 
 gulp.task('webp', ['generateWebp', 'webpcss', 'webphtml'])
+
 const generateWebp = require('gulp-webp')
 gulp.task('generateWebp', function () {
   gulp.src('dist/**/*.{png,jpg,jpeg}')
@@ -63,15 +64,4 @@ gulp.task('webphtml', function () {
       })
     }))
     .pipe(gulp.dest('dist'))
-})
-
-gulp.task('webpcss', function () {
-  gulp.src("dist/**/*.css")
-    .pipe(webpcss({
-      webpClass: '.__webp__',
-      replace_from: /\.(png|jpg|jpeg)/,
-      replace_to: '.webp',
-    }))
-    .pipe(cssnano())
-    .pipe(gulp.dest("dist"))
 })
