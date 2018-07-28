@@ -9,7 +9,7 @@
   }
   var supportWebp = checkWebp()
   if (supportWebp) document.querySelector('html').className = document.querySelector('html').className + '__webp__'
-  window.addEventListener('load', function () {
+  window.addEventListener('DOMContentLoaded', function () {
     var imgEls = document.querySelectorAll('img[data-src]')
     for (var i = 0; i < imgEls.length; i++) {
       var imgSrc = imgEls[i].getAttribute('data-src')

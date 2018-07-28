@@ -51,17 +51,21 @@ gulp.task('webphtml', function () {
     .src('dist/**/*.html')
     .pipe(cheerio(function ($, file) {
       // 插入webp.js
-      if ($('#__webp__').length > 0) return
+      
 
       var webpJs = fs.readFileSync('__webp__.js', 'utf-8');
       $('head').append(`<script id="__webp__">${webpJs}</script>`)
 
-      $('img[src]').each(function () {
+      $('img[src]:not(.not-webp)').each(function () {
         var imgEl = $(this)
         var src = imgEl.attr('src')
+        if(/^http/.test(src)) return
+        console.log(src)
         imgEl.removeAttr('src')
         imgEl.attr('data-src', src)
       })
+
+      if ($('#__webp__').length > 0) return
     }))
     .pipe(gulp.dest('dist'))
 })
