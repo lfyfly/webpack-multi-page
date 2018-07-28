@@ -24,6 +24,10 @@ npm run build
 ### 1.5 一键兼容webp图片
 在执行完`npm run build`后执行`npm run webp`
 
+#### 默认情况下html中的`img[src]`会被处理成`img[data-src]`
+- 当img的src为`http`开头则会被忽略该处理
+- 当img的className中包含`not-webp`开头则会被忽略该处理
+
 ### 1.6 图片压缩
 `src/assets/_img`（原图文件夹） -> `src/assets/img`（压缩后图片文件夹）
 

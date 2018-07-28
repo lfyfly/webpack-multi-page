@@ -52,7 +52,6 @@ gulp.task('webphtml', function () {
     .pipe(cheerio(function ($, file) {
       // 插入webp.js
       
-
       var webpJs = fs.readFileSync('__webp__.js', 'utf-8');
       $('head').append(`<script id="__webp__">${webpJs}</script>`)
 
@@ -60,7 +59,6 @@ gulp.task('webphtml', function () {
         var imgEl = $(this)
         var src = imgEl.attr('src')
         if(/^http/.test(src)) return
-        console.log(src)
         imgEl.removeAttr('src')
         imgEl.attr('data-src', src)
       })
