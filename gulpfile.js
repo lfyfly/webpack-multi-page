@@ -82,6 +82,7 @@ gulp.task('sprites', function () {
     sprites = sprites.pipe(gulpIf(`${spritesItem}/*.{jpg,png,svg}`, spritesmith({
       imgName: spritesItem + '.png',
       cssName: spritesItem + '.css',
+      cssTemplate:'sprites-css.handlebars',
       imgPath: `./${spritesItem}.png`
     })))
   })

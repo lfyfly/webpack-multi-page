@@ -44,6 +44,7 @@
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "postcss-loader": "^2.1.6",
     "pug-html-loader": "^1.1.5",
+    "px2rem-loader": "^0.1.9",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",

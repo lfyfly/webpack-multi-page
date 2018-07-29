@@ -45,7 +45,9 @@ npm run sp
 
 ## 2、功能简介
 ### 2.1 开发模式
-- 多页面开发
+- 多页面开发，支持vue
+- 支持无需引入即可全局使用的`global.scss`
+- 支持px2rem
 - `src/pages`中的html（或pug）文件和`src/js`中的js（入口）文件，必须一一对应
 - 新增页面，需要重新运行`npm run dev`
 - html，css，js 更改自动刷新

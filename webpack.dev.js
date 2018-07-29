@@ -1,7 +1,9 @@
 var webpackCommon = require('./webpack.common.js')
 const merge = require('webpack-merge')
-const cfg = require('./webpack.cfg.js')
 const path = require('path')
+const { styleLoader } = require('./webpack.until.js')
+const cfg = require('./webpack.cfg.js')
+
 module.exports = (env, argv) => {
 
   return merge(webpackCommon(env, argv), {
@@ -11,20 +13,8 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.(css|scss|sass)$/,
-          exclude: /(node_modules|bower_components)/,
-          use: [
-            'style-loader', // 将 JS 字符串生成为 style 节点
-            'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                data: '@import "src/global.scss";'
-              }
-            },
-            'postcss-loader?sourceMap'
-          ]
-        },
+          use: ['style-loader'].concat(styleLoader)
+        }
       ]
     },
     devServer: {

@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
+const { styleLoader } = require('./webpack.until.js')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const webpack = require('webpack')
@@ -20,17 +20,7 @@ module.exports = (env, argv) => {
           test: /\.(css|scss|sass)$/,
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: [
-              'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: true,
-                  data: '@import "src/global.scss";'
-                }
-              },
-              'postcss-loader?sourceMap'
-            ]
+            use: styleLoader
           })
         },
       ]
@@ -69,6 +59,9 @@ module.exports = (env, argv) => {
             annotation: true
           } : undefined,
           autoprefixer: { disable: true },
+          cssProcessor: require('cssnano'),
+          cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
+          canPrint: true
         }
       }),
     ],

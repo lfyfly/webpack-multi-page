@@ -1,4 +1,8 @@
 module.exports = {
+  // px2rem:{
+  //   remUni:100,
+  //   remPrecision: 6
+  // },
   dev: {
     assetsPublicPath: '/', // 资源公共路径
     proxy: { // 代理
