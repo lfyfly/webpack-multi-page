@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
               loader: 'sass-loader',
               options: {
                 sourceMap: true,
-                data: '@import "src/var.scss";'
+                data: '@import "src/global.scss";'
               }
             },
             'postcss-loader?sourceMap'

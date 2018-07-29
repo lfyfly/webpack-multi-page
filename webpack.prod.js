@@ -22,13 +22,17 @@ module.exports = (env, argv) => {
             fallback: "style-loader",
             use: [
               'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
-              'sass-loader?sourceMap', // 将 Sass 编译成 CSS
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: true,
+                  data: '@import "src/global.scss";'
+                }
+              },
               'postcss-loader?sourceMap'
             ]
           })
         },
-
-
       ]
     },
     plugins: [

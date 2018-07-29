@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { resolve, getEntries, getHtmlWebpackPlugins } = require('./webpack.until.js')
 const cfg = require('./webpack.cfg.js')
 
@@ -11,8 +12,12 @@ module.exports = (env, argv) => {
     entry: {
       ...getEntries(argv)
     },
+    resolve: {  //导入的时候不用写拓展名
+      extensions: ['.js', '.vue', '.json'],
+    },
     resolve: {
       alias: {
+        'vue$': 'vue/dist/vue.esm.js',
         '@': resolve('src'),
       }
     },
@@ -56,6 +61,14 @@ module.exports = (env, argv) => {
           }
         },
         {
+          test: /\.vue$/,
+          use: [
+            {
+              loader: 'vue-loader',
+            }
+          ]
+        },
+        {
           test: /\.(gif|png|jpe?g|svg)$/i,
           exclude: /(node_modules|bower_components)/,
           use: [
@@ -83,13 +96,13 @@ module.exports = (env, argv) => {
     },
 
     plugins: [
-
+      new VueLoaderPlugin(),
       // new webpack.HotModuleReplacementPlugin(), // 启用 热更新
       ...getHtmlWebpackPlugins(argv),
       new webpack.LoaderOptionsPlugin({
         options: {
           htmlLoader: {
-            root: path.resolve(__dirname,'./src') // 对于html中的绝对路径进行定位， /assets/a.jpg => path.resolve(__dirname, '/src/assets/a.jpg')
+            root: path.resolve(__dirname, './src') // 对于html中的绝对路径进行定位， /assets/a.jpg => path.resolve(__dirname, '/src/assets/a.jpg')
           }
         }
       }),
