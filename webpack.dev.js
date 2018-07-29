@@ -18,6 +18,7 @@ module.exports = (env, argv) => {
       ]
     },
     devServer: {
+      host:'0.0.0.0',
       proxy: cfg.dev.proxy
     }
   })
