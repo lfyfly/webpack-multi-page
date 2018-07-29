@@ -1,6 +1,7 @@
 var webpackCommon = require('./webpack.common.js')
 const merge = require('webpack-merge')
 const cfg = require('./webpack.cfg.js')
+const path = require('path')
 module.exports = (env, argv) => {
 
   return merge(webpackCommon(env, argv), {
@@ -14,7 +15,13 @@ module.exports = (env, argv) => {
           use: [
             'style-loader', // 将 JS 字符串生成为 style 节点
             'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
-            'sass-loader?sourceMap', // 将 Sass 编译成 CSS
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+                data: '@import "src/var.scss";'
+              }
+            },
             'postcss-loader?sourceMap'
           ]
         },
