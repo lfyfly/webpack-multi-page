@@ -17,6 +17,6 @@ export default {
 
 <style lang="scss">
 #app {
-  
+  color: $global-color;
 }
 </style>

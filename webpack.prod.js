@@ -48,7 +48,7 @@ module.exports = (env, argv) => {
       // new MiniCssExtractPlugin({
       new ExtractTextPlugin({
         // filename: `${cfg.build.assetsSubDirectory}/img/[name].[hash].css`,
-        filename: '[name].[hash].css', // 和html同目录是为了css相对路径起作用
+        filename: '[name].[md5:contenthash:hex:20].css', // 和html同目录是为了css相对路径起作用
         // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       }),
 
