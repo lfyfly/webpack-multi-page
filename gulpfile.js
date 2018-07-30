@@ -12,8 +12,8 @@ const cache = require('gulp-cache') // 缓存压缩图片，避免重复压缩
 
 gulp.task('imgmin', function () {
   gulp.src(`${config.img_src}/**/*.{jpg,jpeg,png}`)
-    .pipe(imagemin(
-      [mozjpeg({ quality: config.imgmin_quality }), pngquant({ quality: config.imgmin_quality })]))
+    .pipe(cache(imagemin(
+      [mozjpeg({ quality: config.imgmin_quality }), pngquant({ quality: config.imgmin_quality })])))
     .pipe(gulp.dest(config.img_dest))
 })
 
