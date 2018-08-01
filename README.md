@@ -73,7 +73,7 @@ npm run sp
   - `common.js`是指被多个页面引用超过2次并且，大小超过20k时，才会生成
   - `[page.js]`对应着每个页面独自的js文件 
 - css文件单独提取
-- 小于8k文件自动转base64代码
+- 小于8k图片文件和字体文件自动转base64代码
 
 ## gulp 多页面配置
 [dev-easy](https://github.com/lfyfly/dev-easy)

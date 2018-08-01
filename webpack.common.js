@@ -75,7 +75,7 @@ module.exports = (env, argv) => {
             {
               loader: 'url-loader',
               options: {
-                limit: 5 * 1024,
+                limit: 8 * 1024,
                 name: `${cfg.build.assetsSubDirectory}/img/[name]-[hash:7].[ext]`,
               }
             }
