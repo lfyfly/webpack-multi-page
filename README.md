@@ -80,6 +80,7 @@ npm run sp
 - css文件单独提取
 - 小于8k图片文件和字体文件自动转base64代码
 - pages多级目录支持（忽略下划线开头的文件和文件夹）
-  - 二级目录以上页面需要在页面中，增加`<base>`标签进行修正相对路径。如`src/pages/test/test-0.html`中的`<head>`中的`<base href="../" />`
+  - 当配置文件`webpack.cfg.js`中`build.assetsPublicPath === './' `，二级目录以上页面需要在页面中，增加`<base>`标签进行修正相对路径。如`src/pages/test/test-0.html`中的`<head>`中的`<base href="../" />`
+  - 当配置文件`webpack.cfg.js`中`build.assetsPublicPath === '/' `, 则路径为绝对路径，无需修正路径
 ## gulp 多页面配置
 [dev-easy](https://github.com/lfyfly/dev-easy)
