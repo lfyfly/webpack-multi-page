@@ -63,6 +63,11 @@ npm run sp
 - html中的img标签`src`对应图片可以被`url-loader`所处理
   - 第一种方式是`相对html路径`
   - 第二种方式以`/assets`开头的绝对路径，自动定位到`src/assets`目录下
+  - 第三种种方式以`~@/assets`开头的绝对路径，自动定位到`src/assets`目录下
+
+- csss中的背景图写法
+  - 第一种方式是`相对css文件的相对路径`
+  - 第二种种方式以`~@/assets`开头的绝对路径，自动定位到`src/assets`目录下
 
 ### 2.3 打包相关
 - 打包后html文件，css文件图片路径完美生成`相对路径`（为此css与html打包在同一目录下）
@@ -74,6 +79,7 @@ npm run sp
   - `[page.js]`对应着每个页面独自的js文件 
 - css文件单独提取
 - 小于8k图片文件和字体文件自动转base64代码
-
+- pages多级目录支持（忽略下划线开头的文件和文件夹）
+  - 二级目录以上页面需要在页面中，增加`<base>`标签进行修正相对路径。如`src/pages/test/test-0.html`中的`<head>`中的`<base href="../" />`
 ## gulp 多页面配置
 [dev-easy](https://github.com/lfyfly/dev-easy)

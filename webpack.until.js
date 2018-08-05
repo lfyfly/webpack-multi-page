@@ -7,6 +7,24 @@ const resolve = function (_path) {
 const cfg = require('./webpack.cfg')
 let until = {
   resolve,
+  getFileList(targetPath) {
+    let fileList = []
+    const _getFileList = function (targetPath) {
+      let dirFileList = fs.readdirSync(targetPath)
+      return dirFileList.forEach(filename => {
+        // 排除下划线开头的所有文件和文件夹
+        if (/^_/.test(filename)) return
+        let _path = path.resolve(targetPath, filename)
+        if (fs.statSync(_path).isDirectory()) {
+          _getFileList(_path)
+        } else {
+          fileList.push({ filepath: _path, filename })
+        }
+      })
+    }
+    _getFileList(targetPath)
+    return fileList
+  },
   styleLoader: [
     'css-loader?sourceMap', // 将 CSS 转化成 CommonJS 模块
     'postcss-loader?sourceMap'].concat(
@@ -23,33 +41,35 @@ let until = {
       }
     ),
   getEntries(argv) {
-    let entries = fs.readdirSync(resolve('./src/js'))
+
+    let entries = until.getFileList(resolve('./src/js'))
     let entry = {}
     let key
-    entries.forEach((entryJs) => {
-      if (/.js$/.test(entryJs)) {
-        key = entryJs.replace(/.js$/, '')
-        entry[key] = resolve(`./src/js/${entryJs}`)
+    entries.forEach((file) => {
+      if (/.js$/.test(file.filename)) {
+        key = file.filename.replace(/.js$/, '')
+        entry[key] = file.filepath
       }
     })
+    console.log('【入口文件】')
     console.log(entry)
     return entry
   },
   getHtmlWebpackPlugins(argv) {
-
-    let htmls = fs.readdirSync(resolve('./src/pages'))
+    let targetPath = resolve('./src/pages')
+    let htmls = until.getFileList(targetPath)
     let HtmlWebpackPlugins = []
-    htmls.forEach((tplFileName) => {
+    htmls.forEach((file) => {
       let chunkName
       var reg = /\.[^.]+$/
-      if (reg.test(tplFileName)) {
-        chunkName = tplFileName.replace(reg, '')
-
+      if (reg.test(file.filename)) {
+        chunkName = file.filename.replace(reg, '')
+        console.log('.' + file.filepath.replace(targetPath, '').replace(reg,'.html'))
         HtmlWebpackPlugins.push(
           new HtmlWebpackPlugin({
-            title: 'Custom template using Handlebars',
-            template: resolve(`./src/pages/${tplFileName}`),
-            filename: chunkName + '.html',
+            baseTagUrl:'../',
+            template: file.filepath,
+            filename:'.' + file.filepath.replace(targetPath, '').replace(reg,'.html'),
             chunks: [chunkName].concat(argv.mode === 'production' ? ['vendor', 'commons', 'manifest'] : []),
             inject: true,
             minify: argv.mode !== 'production' ? undefined : {
