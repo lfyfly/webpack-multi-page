@@ -20,7 +20,8 @@ module.exports = (env, argv) => {
           test: /\.(css|scss|sass)$/,
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: styleLoader
+            use: styleLoader,
+            publicPath:'../../'
           })
         },
       ]
@@ -37,8 +38,8 @@ module.exports = (env, argv) => {
 
       // new MiniCssExtractPlugin({
       new ExtractTextPlugin({
-        // filename: `${cfg.build.assetsSubDirectory}/img/[name].[hash].css`,
-        filename: '[name].[md5:contenthash:hex:20].css', // 和html同目录是为了css相对路径起作用
+        filename: `${cfg.build.assetsSubDirectory}/css/[name].[md5:contenthash:hex:20].css`,
+        // filename: '[name].[md5:contenthash:hex:20].css', // 和html同目录是为了css相对路径起作用
         // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       }),
 

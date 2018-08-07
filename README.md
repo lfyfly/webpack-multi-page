@@ -70,7 +70,7 @@ npm run sp
   - 第二种种方式以`~@/assets`开头的绝对路径，自动定位到`src/assets`目录下
 
 ### 2.3 打包相关
-- 打包后html文件，css文件图片路径完美生成`相对路径`（为此css与html打包在同一目录下）
+- 为了css文件图片路径完美生成`相对路径`，会被打包成奇怪的图片路径`../../static/img/xxx.jpg`
 - 打包cdn路径一键配置
 - 静态文件目录`static`文件夹，打包会被拷贝到dist目录
 - 支持打包文件版本hash，提取`vendor.js` `common.js` `[page].js`文件，只对模块更改的css，js文件版本hash进行更改
