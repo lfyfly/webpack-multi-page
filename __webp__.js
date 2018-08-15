@@ -17,6 +17,7 @@
       imgEls[i].removeAttribute('data-src')
       if (supportWebp) imgSrc = imgSrc.replace(/(\.[^\.]+)$/, '.webp')
       imgEls[i].src = imgSrc
+      imgEls[i].style.visibility = 'visible'
     }
   })
 })()
