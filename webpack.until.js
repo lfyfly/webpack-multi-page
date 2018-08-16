@@ -5,6 +5,18 @@ const resolve = function (_path) {
   return path.resolve(__dirname, _path)
 }
 const cfg = require('./webpack.cfg')
+
+// 判断当前页面是否包含CommonCssChunk
+function getCommonCssChunk(chunkName) {
+  if (!cfg.commonCss) return []
+  // 无commonCss.exclude，所有页面包含
+  if(!cfg.commonCss.exclude) return  'common_css'
+  //  有commonCss.exclude，不包含在该数组的页面引用
+  if(cfg.commonCss.exclude && !cfg.commonCss.exclude.includes(chunkName)) return 'common_css'
+  // 其他
+  return []
+}
+
 let until = {
   resolve,
   getFileList(targetPath) {
@@ -64,13 +76,13 @@ let until = {
       var reg = /\.[^.]+$/
       if (reg.test(file.filename)) {
         chunkName = file.filename.replace(reg, '')
-        console.log('.' + file.filepath.replace(targetPath, '').replace(reg,'.html'))
+        console.log('.' + file.filepath.replace(targetPath, '').replace(reg, '.html'))
         HtmlWebpackPlugins.push(
           new HtmlWebpackPlugin({
-            baseTagUrl:'../',
+            baseTagUrl: '../',
             template: file.filepath,
-            filename:'.' + file.filepath.replace(targetPath, '').replace(reg,'.html'),
-            chunks: [chunkName].concat(argv.mode === 'production' ? ['vendor', 'commons', 'manifest'] : []),
+            filename: '.' + file.filepath.replace(targetPath, '').replace(reg, '.html'),
+            chunks: [chunkName].concat(getCommonCssChunk(chunkName)).concat(argv.mode === 'production' ? ['vendor', 'commons', 'manifest'] : []),
             inject: true,
             minify: argv.mode !== 'production' ? undefined : {
               removeComments: true,

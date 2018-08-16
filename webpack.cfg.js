@@ -1,4 +1,9 @@
+const path = require('path')
 module.exports = {
+  commonCss:{
+    entry: path.resolve(__dirname,'src/common_css_entry.js'), // String 必填，绝对地址
+    exclude:['about'] // Arrary 排除页面，不填所有页面都引入common_css
+  },
   // px2rem:{
   //   remUni:100,
   //   remPrecision: 6

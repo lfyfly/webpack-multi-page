@@ -82,5 +82,14 @@ npm run sp
 - pages多级目录支持（忽略下划线开头的文件和文件夹）
   - 当配置文件`webpack.cfg.js`中`build.assetsPublicPath === './' `，二级目录以上页面需要在页面中，增加`<base>`标签进行修正相对路径。如`src/pages/test/test-0.html`中的`<head>`中的`<base href="../" />`
   - 当配置文件`webpack.cfg.js`中`build.assetsPublicPath === '/' `, 则路径为绝对路径，无需修正路径
+
+- 页面共有css文件入口支持
+```
+commonCss:{
+    entry: path.resolve(__dirname,'src/common_css_entry.js'), // String 必填，入口文件，绝对地址
+    exclude:['about'] // Arrary 排除页面，不填所有页面都引入common_css
+    // ['about'] 代表about页面不引用 common_css
+  },
+```
 ## gulp 多页面配置
 [gulp-easy](https://github.com/lfyfly/gulp-easy)

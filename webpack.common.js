@@ -5,11 +5,17 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { resolve, getEntries, getHtmlWebpackPlugins } = require('./webpack.until.js')
 const cfg = require('./webpack.cfg.js')
+let otherEntries = {}
+// 公共css文件入口
+if (cfg.commonCss && cfg.commonCss.entry) {
+  otherEntries.common_css = cfg.commonCss.entry
+}
 
 module.exports = (env, argv) => {
   console.log(argv.mode, '========================')
   return {
     entry: {
+      ...otherEntries,
       ...getEntries(argv)
     },
     resolve: {  //导入的时候不用写拓展名
